@@ -6,7 +6,7 @@ import org.eucomm.cellculturemanager.gui.SplashScreen;
 
 public class CellCultureManager {
 	
-	public static String version = "1.6";
+	public static String version = "1.7";
 
 	/**
 	 * @param args

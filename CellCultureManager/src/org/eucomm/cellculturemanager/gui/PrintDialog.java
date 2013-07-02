@@ -1,6 +1,5 @@
 package org.eucomm.cellculturemanager.gui;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,7 +26,6 @@ import javax.swing.border.LineBorder;
 import org.eucomm.cellculturemanager.controller.DatabaseProvider;
 import org.eucomm.cellculturemanager.controller.LabelPrinter;
 import org.eucomm.cellculturemanager.model.Clone;
-
 
 public class PrintDialog implements FrameDisabler {
 
@@ -328,14 +326,24 @@ public class PrintDialog implements FrameDisabler {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (DatabaseProvider.getInstance().duplicateClone(clone.getDatabaseID())) {
-				JOptionPane.showMessageDialog(dialog, "Your clone was duplicated.", "Duplication Succeed", JOptionPane.INFORMATION_MESSAGE);
-				dialog.dispose();
-				ccManager.updateCloneTable();
+
+			if (JOptionPane.showConfirmDialog(dialog, "Do you really want to duplicate the clone " + clone.getCloneID(), "Duplicate", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+
+				if (JOptionPane.showConfirmDialog(dialog, "Are you really really sure that you want to split the clone " + clone.getCloneID() + " into 1x6 and 1x24 well?", "Duplicate", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+
+					if (DatabaseProvider.getInstance().duplicateClone(clone.getDatabaseID())) {
+						JOptionPane.showMessageDialog(dialog, "Your clone was duplicated.", "Duplication Succeed", JOptionPane.INFORMATION_MESSAGE);
+						dialog.dispose();
+						ccManager.updateCloneTable();
+					}
+					else {
+						JOptionPane.showMessageDialog(dialog, "Sorry, I could not duplicate your clone.", "Duplication Failed", JOptionPane.ERROR_MESSAGE);
+					}
+
+				}
+
 			}
-			else {
-				JOptionPane.showMessageDialog(dialog, "Sorry, I could not duplicate your clone.", "Duplication Failed", JOptionPane.ERROR_MESSAGE);
-			}
+
 		}
 
 	}
