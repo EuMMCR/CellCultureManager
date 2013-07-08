@@ -16,6 +16,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import org.eucomm.cellculturemanager.CellCultureManager;
 import org.eucomm.cellculturemanager.controller.DatabaseProvider;
 
 import de.codeworking.excelparser.Parser;
@@ -36,6 +37,9 @@ public class SplashScreen {
 		title.setFont(title.getFont().deriveFont(20f));
 		title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
+		JLabel version = new JLabel("Version " + CellCultureManager.version);
+		version.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
 		JLabel message1 = new JLabel("Please wait while the program is loading.");
 		message1.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -46,6 +50,8 @@ public class SplashScreen {
 		mainBox.setLayout(new BoxLayout(mainBox, BoxLayout.Y_AXIS));
 		mainBox.setBorder(new EmptyBorder(15, 15, 15, 15));
 		mainBox.add(title);
+		mainBox.add(Box.createRigidArea(new Dimension(0, 10)));
+		mainBox.add(version);
 		mainBox.add(Box.createRigidArea(new Dimension(0, 10)));
 		mainBox.add(message1);
 		mainBox.add(message2);
